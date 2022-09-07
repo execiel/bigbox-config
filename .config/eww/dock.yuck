@@ -1,0 +1,38 @@
+(defvar eww "$HOME/Applications/eww/target/release/eww")
+(defvar rev_dock false)
+
+(defwidget dockcontainer []
+    (eventbox
+      :class "dock_trigger"
+      :onhover "${eww} update rev_dock=true"
+      :onhoverlost "${eww} update rev_dock=false"
+      (box
+        :space-evenly false
+        :halign "center"
+        (revealer
+          :reveal rev_dock
+          :class "dock_rev"
+          :duration "0.3s"
+          :transition "crossfade"
+          (box
+            :class "dock"
+            (eventbox :onclick "firefox" :class "firefox" " ")
+            (eventbox :onclick "kitty ranger ~" :class "files" " ")
+            (eventbox :onclick "kitty" :class "term" " ")
+            (eventbox :onclick "spotify-launcher" :class "spotify" " ")
+            (eventbox :onclick "firefox https://github.com/weglon" :class "gh" " ")
+            (eventbox :onclick "firefox https://mail.google.com" :class "mail" " ")
+            )))))
+
+(defwindow dock
+  :monitor 0
+  :windowtype "dialog"
+  :stacking "fg"
+  :geometry (geometry
+            :anchor "bottom center"
+            :x "0px"
+            :y "0px"
+            :width "100%"
+            :height "8px"
+            )
+  (dockcontainer))

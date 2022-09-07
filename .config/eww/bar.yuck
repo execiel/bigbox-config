@@ -1,0 +1,213 @@
+(defvar eww "$HOME/Applications/eww/target/release/eww")
+
+(defvar rev_wifi false)
+(defvar rev_vol false)
+(defvar rev_window false)
+(defvar rev_music false)
+(defvar rev_stats true)
+(defvar rev_menu false)
+
+(deflisten workspaces "scripts/workspace")
+
+(deflisten music :initial ""
+  "playerctl --follow metadata --format '{{ title }}' || true")
+(deflisten playerstate "playerctl status --follow metadata")
+
+(defpoll windows :interval "3s"
+  "scripts/window")
+
+(defpoll windowname :interval "0.2s"
+  "scripts/windowtitle")
+
+(defpoll volval :interval "1s"
+  "scripts/getvol value")
+
+(defpoll volicon :interval ".5s"
+  "scripts/getvol icon")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M'")
+
+(defpoll ram :interval "5s"
+  "scripts/getram")
+
+(defpoll temptext :interval "5s"
+  "scripts/temp text")
+(defpoll tempicon :interval "5s"
+  "scripts/temp icon")
+(defpoll tempclass :interval "5s"
+  "scripts/tempclass")
+
+(defpoll disktext :interval "30s"
+  "scripts/disk text")
+(defpoll diskclass :interval "30s"
+  "scripts/disk class")
+
+(defpoll ramtext :interval "20s"
+  "scripts/getram text")
+(defpoll ramclass :interval "20s"
+  "scripts/getram class")
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (leftside)
+    (middle)
+    (rightside)))
+
+(defwidget leftside []
+  (box :class "leftside" :orientation "h" :space-evenly false :halign "start"
+    (menu)
+    (window)))
+
+(defwidget menu[]
+  (eventbox
+    :class "menu"
+    :onhover "${eww} update rev_menu=true"
+    :onhoverlost "${eww} update rev_menu=false"
+    (box
+      :space-evenly false
+      (button :onclick "rofi -show drun &" "")
+      (revealer
+        :reveal rev_menu
+        :class "menu_rev"
+        :duration "0.4s"
+        :transition "slideright"
+        (box
+          :space-evenly false
+          :class "menu-rev"
+          (button :class "shutdown" :onclick "shutdown -h now" "襤")
+          (button :class "reboot" :onclick "sudo reboot" "ﰇ" )
+          (button :class "logout" :onclick "qtile cmd-obj -o cmd -f shutdown" "﫼")
+          )))))
+
+(defwidget stats []
+  (eventbox
+    :class "stats"
+    :onclick "./scripts/stats"
+    (box
+      :space-evenly false
+      (label
+        :class tempclass
+        :text tempicon)
+      (revealer
+        :reveal rev_stats
+        :class "stats_rev"
+        :transition "slideleft"
+        :duration "0.3s"
+        temptext)
+      (label
+        :class ramclass
+        :text "")
+      (revealer
+        :reveal rev_stats
+        :transition "slideleft"
+        :duration "0.3s"
+        :class "stats_rev"
+        ramtext)
+      (label
+        :class diskclass
+        :text "")
+      (revealer
+        :reveal rev_stats
+        :duration "0.3s"
+        :transition "slideleft"
+        :class "stats_rev"
+        disktext))
+ 
+    ))
+
+
+(defwidget middle []
+  (box
+    :class "middle"
+    :orientation "h"
+    :space-evenly false
+    :halign "center"
+    (literal :class "workspaces" :content workspaces)))
+
+
+(defwidget rightside []
+  (box :class "rightside" :orientation "h" :space-evenly false :halign "end"
+    (stats)
+    (box
+      :space-evenly false
+      :class "tray"
+      (revealslider
+        :icon volicon
+        :value volval
+        :iconclass "volume_icon"
+        :onchange "amixer -D pipewire sset Master {}%"
+        :revealvar rev_vol
+        :varname "rev_vol")
+      (label
+        :class "clock"
+        :text time))))
+
+(defwidget window []
+  (eventbox
+    :class "window"
+    :onhover "${eww} update rev_window=true"
+    :onhoverlost "${eww} update rev_window=false"
+    (box
+      :text {windowname != "" ? "${windowname}" : "..."}
+      :space-evenly false
+      (label :text "${windowname}")
+      (revealer
+        :reveal rev_window
+        :transition "slideleft"
+        :duration "0.3s"
+        :class "rev_window"
+        (literal :class "windowlist" :content windows )))))
+
+(defwidget music []
+  (eventbox
+    :onhover "${eww} update rev_music=true"
+    :onhoverlost "${eww} update rev_music=false"
+    :class "music"
+    (box
+      :space-evenly false
+      (label :class "icon" :text "  ")
+      (label :class "text" :text {music != "" ? " ${music} " : "Nothing"})
+      (revealer
+        :class "rev_music"
+        :transition "slideright"
+        :duration "0.3s"
+        :reveal rev_music
+        (box
+          (button :class "player" :onclick "playerctl previous" "玲")
+          (button :class "player" :onclick "playerctl play-pause" {playerstate == "Playing" ? "" : "契"})
+          (button :class "player" :onclick "playerctl next" "怜 ")
+        )))))
+
+
+(defwidget revealslider [icon value onchange revealvar varname iconclass]
+    (eventbox
+      :class "rev_slider"
+      :onhover "${eww} update ${varname}=true"
+      :onhoverlost "${eww} update ${varname}=false"
+      (box
+        :orientation "h"
+        :space-evenly false
+        (label :class iconclass :text icon)
+        (revealer
+          :transition "slideleft"
+          :duration "0.3s"
+          :reveal revealvar
+          (scale
+            :min 0
+            :max 101
+            :value value
+            :onchange onchange)))))
+
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :stacking "bg"
+  :geometry (geometry :x "0px"
+                      :y "0px"
+                      :width "100%"
+                      :height "36px"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "0px")
+  (bar))
+

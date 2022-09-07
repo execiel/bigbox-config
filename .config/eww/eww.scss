@@ -1,0 +1,421 @@
+/////////////////
+//  Variables  //
+/////////////////
+
+// Colors
+$background: #0f111a;
+$bgdark: #161926;
+$drgray: #1f2233;
+$brgray: #505a7a;
+$text: #fafafa;
+$brred: #f07178;
+$drred: #dc6068;
+$brblue: #b0c9ff;
+$drblue: #82aaff;
+$bryellow: #ffcb6b;
+$dryellow: #f78c6c;
+$brgreen: #c3e88d;
+$brcyan: #89ddff;
+$brmagenta: #ff9cac;
+
+// Sizes
+$iconsize: 20px;
+$bigiconsize: 23px;
+$fontsize: 15px;
+$bordersize: 2px;
+
+///////////
+//  bar  //
+///////////
+
+* {
+  all: unset;
+  font-size: $fontsize;
+  font-family: JetBrains Mono Nerd Font;
+  font-weight: 500;
+}
+
+.bar {
+  opacity: 0.85;
+  color: $text;
+  padding: 10px;
+  background-color: $background;
+}
+
+.icon {
+  font-size: $iconsize;
+}
+
+.leftside {
+  margin-left: 10px;
+}
+
+.tray {
+  margin-right: 10px;
+}
+
+//  menu
+
+.menu {
+  transition: 0.3s all;
+}
+
+.menu > box {
+  padding-left: 8px;
+}
+
+.menu:hover {
+  border-bottom: $bordersize solid $brgreen;
+}
+
+.menu:hover > box {
+  padding-right: 8px;
+}
+
+.menu button,
+.menu label {
+  font-size: $bigiconsize;
+  transition: 0.1s;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.menu:hover button {
+  margin-left: 8px;
+  margin-right: 8px;
+}
+
+.menu .shutdown {
+  color: $brred;
+}
+
+.menu .reboot {
+  color: $bryellow;
+}
+
+.menu .logout {
+  color: $brgreen;
+}
+
+.menu button:hover {
+  color: $text;
+}
+
+//  Workspaces
+.workspaces {
+  margin-top: 2px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.workspaces button:hover {
+  color: $text;
+  border-bottom: solid 2px $text;
+}
+
+.workspaces * {
+  font-size: $iconsize;
+}
+
+.workspaces button {
+  transition: 0.1s;
+
+  padding-left: 6px;
+  padding-right: 11px;
+  padding-bottom: 4px;
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+.workspaces .free {
+  color: $drgray;
+}
+
+.workspaces .focused {
+  color: $brblue;
+}
+
+.workspaces .occupied {
+  color: $brgray;
+}
+
+//  stats and other colorchanging icons
+
+.stats {
+  transition: 0.3s all;
+}
+
+.stats > box {
+  padding-left: 10px;
+  padding-right: 10px;
+  margin-right: 10px;
+}
+
+.stats:hover > box {
+  border-bottom: $bordersize solid $brcyan;
+}
+
+.stats > box > * {
+  margin: 0px 8px 0px 8px;
+}
+
+.ram_icon {
+  font-size: $bigiconsize;
+}
+
+.disk_empty,
+.disk_good,
+.disk_warn,
+.disk_full,
+.disk_good,
+.temp_crit,
+.temp_high,
+.temp_med,
+.temp_low {
+  font-size: $iconsize;
+}
+
+.ram_full,
+.ram_warn,
+.ram_good {
+  font-size: $bigiconsize;
+}
+
+.temp_low {
+  color: $brblue;
+}
+
+.ram_good,
+.disk_good {
+  color: $brblue;
+}
+
+.battery_charging,
+.battery_full,
+.battery_high,
+.battery_med,
+.battery_low,
+.battery_crit {
+  margin-left: 5px;
+}
+
+.battery_charging,
+.battery_med,
+.battery_low,
+.battery_crit {
+  margin-right: 10px;
+}
+
+.battery_crit,
+.ram_full,
+.temp_crit {
+  color: $drred;
+}
+
+.battery_low,
+.disk_full,
+.temp_high {
+  color: $brred;
+}
+
+.battery_med,
+.disk_warn,
+.ram_warn,
+.temp_med {
+  color: $dryellow;
+}
+
+.disk_empty {
+  color: $brblue;
+}
+
+//Wifi
+
+.wifi * {
+  transition: 0.3s all;
+}
+
+.wifi box {
+  margin-right: 5px;
+}
+
+.wifi > box > * {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.wifi revealer > label {
+  margin-left: 10px;
+}
+
+.wifi:hover {
+  border-bottom: $bordersize solid $brgreen;
+}
+
+.wifi:hover box {
+  padding-right: 12px;
+  padding-left: 10px;
+}
+
+//  Slider stuff
+
+.volume_icon {
+  font-size: $bigiconsize;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.rev_slider {
+  transition: 0.3s all;
+}
+
+.rev_slider box {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.rev_slider .icon {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.rev_slider:hover {
+  background-color: $bgdark;
+  border-bottom: $bordersize solid $brmagenta;
+}
+
+.rev_slider scale trough highlight {
+  all: unset;
+  background-color: $brmagenta;
+  border-radius: 10px;
+}
+
+.rev_slider scale trough {
+  all: unset;
+  background-color: $drgray;
+  min-height: 8px;
+  min-width: 50px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
+.clock {
+  margin-right: 15px;
+  margin-left: 5px;
+  color: $text;
+}
+
+//  Music player
+
+.music {
+  transition: 0.3s all;
+  color: $brmagenta;
+}
+
+.music > box {
+  padding-left: 15px;
+  padding-right: 15px;
+  margin-left: 10px;
+}
+
+.music .icon {
+  font-size: $bigiconsize;
+}
+
+.music:hover > box {
+  border-bottom: $bordersize solid $brmagenta;
+}
+
+.music .player {
+  transition: 0.3s all;
+  margin: 0px 5px 0px 5px;
+}
+
+.music .player * {
+  font-size: $bigiconsize;
+}
+
+.music .player:hover {
+  color: $text;
+}
+
+// Window stuff
+
+.window > box {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.window:hover > box {
+  border-bottom: $bordersize solid $brcyan;
+}
+
+.window_toggle {
+  margin-left: 10px;
+  margin-top: 5px;
+}
+
+.window_button {
+  color: $brcyan;
+
+  transition: 0.3s;
+
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.window_button:hover {
+  opacity: 0.5;
+}
+
+////////////
+//  dock  //
+////////////
+
+.dock {
+  margin-bottom: 8px;
+  padding: 10px;
+  transition: 0.3s all;
+}
+
+.dock_trigger:hover .dock {
+  background-color: $background;
+}
+
+.dock * {
+  font-size: 35px;
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.dock *:hover {
+  color: $text;
+}
+
+.dock .firefox {
+  color: $brred;
+}
+
+.dock .files {
+  color: $brcyan;
+}
+
+.dock .spotify {
+  color: $brgreen;
+}
+
+.dock .term {
+  color: $brmagenta;
+}
+
+.dock .gh {
+  color: $bryellow;
+}
+
+.dock .mail {
+  color: $drred;
+}
