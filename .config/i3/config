@@ -2,14 +2,13 @@
 set $mod Mod4
 font pango:JetBrains Mono Nerd Font 12
 gaps inner 10
-gaps outer 6
+gaps outer 0
 
 # Autostart
 exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
 exec --no-startup-id nm-applet
 exec nitrogen --restore
 exec picom --config ~/.config/i3/picom.conf -b
-exec ~/Applications/eww/target/release/eww open barholder
 exec ~/Applications/eww/target/release/eww open bar
 
 default_border pixel 0
@@ -27,7 +26,7 @@ bindsym XF86AudioMicMute exec --no-startup-id pactl set-source-mute @DEFAULT_SOU
 floating_modifier $mod
 bindsym $mod+Return exec kitty
 bindsym $mod+w exec firefox
-bindsym $mod+e exec nautilus 
+bindsym $mod+e exec thunar & 
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show drun
 
@@ -101,16 +100,16 @@ bindsym $mod+9 workspace number $ws9
 bindsym $mod+0 workspace number $ws10
 
 # move focused container to workspace
-bindsym $mod+Shift+1 move container to workspace number $ws1
-bindsym $mod+Shift+2 move container to workspace number $ws2
-bindsym $mod+Shift+3 move container to workspace number $ws3
-bindsym $mod+Shift+4 move container to workspace number $ws4
-bindsym $mod+Shift+5 move container to workspace number $ws5
-bindsym $mod+Shift+6 move container to workspace number $ws6
-bindsym $mod+Shift+7 move container to workspace number $ws7
-bindsym $mod+Shift+8 move container to workspace number $ws8
-bindsym $mod+Shift+9 move container to workspace number $ws9
-bindsym $mod+Shift+0 move container to workspace number $ws10
+bindsym $mod+Shift+1 move container to workspace number $ws1 workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2 workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3 workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4 workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5 workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6 workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7 workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8 workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9 workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10 workspace number $ws10
 
 bindsym $mod+Shift+r reload
 bindsym $mod+Ctrl+r restart
